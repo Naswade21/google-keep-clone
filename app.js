@@ -22,10 +22,11 @@ class App {
             let title = this.$noteTitle.value
             let noteText = this.$notesText.value
 
-            this.renderNote(title, noteText)
-
-            title = ' '
-            noteText = ''
+            if(title && noteText){
+                this.renderNote(title, noteText)
+                this.$notesText.value = ``
+                this.$noteTitle.value = ``
+            }
         })
     }
 
@@ -48,6 +49,8 @@ class App {
     closeForm(){
         this.$form.classList.remove('form-open')
         this.$noteTitle.style.display = 'none'
+        this.$notesText.value = ``
+        this.$noteTitle.value = ``
         this.$formButtons.style.display = 'none'
     }
 
