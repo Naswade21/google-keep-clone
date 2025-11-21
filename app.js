@@ -52,7 +52,7 @@ class App {
     }
 
     renderNote(title, noteText = ''){
-        return this.$notes.innerHTML = `
+        return this.$notes.innerHTML += `
         <div class="note">
                 <div class="note-title">${title}</div>
                 <div class="note-text">${noteText}</div>
