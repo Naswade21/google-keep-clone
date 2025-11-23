@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 class App {
     constructor(){ //constructor is a special method for a class
         this.$form = document.getElementById('form') //Anything with $ will represent an element
@@ -6,6 +8,7 @@ class App {
         this.$notes = document.getElementById('notes')
         this.$notesText = document.getElementById('note-text')
         this.$submitButton = document.getElementById('submit-btn')
+        this.note = []
 
         this.addEventListeners()
     }
@@ -52,6 +55,11 @@ class App {
         this.$notesText.value = ``
         this.$noteTitle.value = ``
         this.$formButtons.style.display = 'none'
+    }
+
+    updateNoteArr(id, title, text){ 
+        id = uuidv4()
+        
     }
 
     renderNote(title, noteText = ''){
