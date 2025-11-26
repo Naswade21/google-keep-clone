@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 class App {
     constructor(){ //constructor is a special method for a class
         this.$form = document.getElementById('form') //Anything with $ will represent an element
@@ -22,11 +20,15 @@ class App {
         this.$form.addEventListener('submit', (e) => {
             e.preventDefault()
 
-            let title = this.$noteTitle.value
-            let noteText = this.$notesText.value
+            let fullNote = {
+                title: this.$noteTitle.value,
+                noteText: this.$notesText.value
+            }
 
-            if(title && noteText){
-                this.renderNote(title, noteText)
+            if(fullNote.title || fullNote.noteText){
+                this.note.push(fullNote)
+                this.renderNote(this.note)
+                console.log(this.note)
                 this.$notesText.value = ``
                 this.$noteTitle.value = ``
             }
@@ -57,19 +59,27 @@ class App {
         this.$formButtons.style.display = 'none'
     }
 
-    updateNoteArr(id, title, text){ 
-        id = uuidv4()
-        
-    }
-
-    renderNote(title, noteText = ''){
-        return this.$notes.innerHTML += `
-        <div class="note">
-                <div class="note-title">${title}</div>
-                <div class="note-text">${noteText}</div>
+   getNoteHtml(arr){
+    return arr.map((note) => {
+        return `
+         <div class="note">
+                <div class="note-title">${note.title}</div>
+                <div class="note-text">${note.noteText}</div>
             </div>
         `
-    }
+    })
+   }
+
+   renderNote(arr){
+    return this.$notes.innerHTML = this.getNoteHtml(arr)
+   }
 }
 
 new App()
+
+/*
+    <div class="note">
+                <div class="note-title">${title}</div>
+                <div class="note-text">${noteText}</div>
+            </div>
+*/
