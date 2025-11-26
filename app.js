@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 class App {
     constructor(){ //constructor is a special method for a class
         this.$form = document.getElementById('form') //Anything with $ will represent an element
@@ -21,6 +23,7 @@ class App {
             e.preventDefault()
 
             let fullNote = {
+                id: uuidv4(),
                 title: this.$noteTitle.value,
                 noteText: this.$notesText.value
             }
