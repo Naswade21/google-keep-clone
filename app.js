@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
-//<button type="button" id="edit-btn">Edit</button>
 
 class App {
     constructor(){ //constructor is a special method for a class
@@ -33,6 +32,11 @@ class App {
             this.closeForm()
         })
 
+        this.$modalClose.addEventListener('click', (e) =>{
+            e.stopPropagation()
+            this.closeModal()
+        })
+
         this.$form.addEventListener('submit', (e) => {
             e.preventDefault()
 
@@ -44,7 +48,7 @@ class App {
             }
 
             if(fullNote.title || fullNote.noteText){
-                this.note.push(fullNote)
+                this.note.unshift(fullNote)
                 this.renderNote(this.note)
                 this.$placeHolder.style.display = 'flex'
                 this.$notesText.value = ``
@@ -81,16 +85,19 @@ class App {
     }
 
     openModal(e){
-        if (e.target.closest('.note')){
+        if (e.target.dataset.note){
             this.$modal.classList.toggle('open-modal')
-            this.renderEditBtn(this.note)
         }
+    }
+
+    closeModal(){
+        this.$modal.classList.toggle('open-modal')
     }
 
    getNoteHtml(arr){
     return arr.map((note) => {
         return `
-         <div class="note" id="${note.id}" style="background: ${note.color};">
+         <div class="note" data-note="${note.id}" style="background: ${note.color};">
                 <div class="note-title">${note.title}</div>
                 <div class="note-text">${note.noteText}</div>
                 <div class="toolbar-container">
@@ -104,13 +111,10 @@ class App {
     }).join('')
    }
 
-   getModalButtonHtml(arr){
-    return `<button type="button" data-edit="${arr[0].id}" id="edit-btn">Edit</button>`
+   getModalButtonHtml(buttonId){
+     let buttonHtml = `<button type="button" data-edit="${buttonId}" id="edit-btn">Edit</button>`
+     return buttonHtml
     }
-
-   renderEditBtn(arr){
-    return this.$modalBtn.innerHTML = this.getModalButtonHtml(arr)
-   }
 
    renderNote(arr){
     return this.$notes.innerHTML = this.getNoteHtml(arr)
