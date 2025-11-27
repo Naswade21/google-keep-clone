@@ -105,7 +105,9 @@ class App {
             return e.target.dataset.edit === note.id
         })
 
-        console.log(targetNote)
+       targetNote.title = this.$modalTitle.value
+       targetNote.text = this.$modalText.value
+       console.log(this.note)
         }
     }
 
