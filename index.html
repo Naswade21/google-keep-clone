@@ -4,9 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500&display=swap"></link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Google Keep Clone</title>
 </head>
 <body>
+    <div class="modal">
+        <div class="modal-content">
+            <input type="text" class="modal-title" placeholder="Title">
+            <input type="text" class="modal-text" placeholder="Take a note...">
+            <div id="new-btn"><!--- Render button here--></div>
+            <span class="modal-close-button">Close</span>
+        </div>
+    </div>
     <main>
         <header>
             <img src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png" alt="Google Keep Clone logo">
@@ -28,6 +37,6 @@
             <p id="placeholder-text">Notes you add appear here</p>
         </div>
     </main>
-    <script src="app.js"></script>
+    <script src="app.js" type="module"></script>
 </body>
 </html>
