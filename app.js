@@ -15,6 +15,7 @@ class App {
         this.$modalText = document.querySelector('.modal-text')
         this.$modalBtn = document.getElementById('new-btn')
         this.$modalClose = document.querySelector('.modal-close-button')
+        this.fullNote = {}
         this.note = []
         
         this.addEventListeners()
@@ -25,6 +26,8 @@ class App {
         document.body.addEventListener('click', (event) => {
             this.handleFormClick(event)
             this.openModal(event)
+            this.editText(event)
+        
         })
 
         this.$closeBtn.addEventListener('click', (e) => {
@@ -40,15 +43,15 @@ class App {
         this.$form.addEventListener('submit', (e) => {
             e.preventDefault()
 
-            let fullNote = {
+            this.fullNote = {
                 id: uuidv4(),
                 color: 'white',
                 title: this.$noteTitle.value,
                 noteText: this.$notesText.value
             }
 
-            if(fullNote.title || fullNote.noteText){
-                this.note.unshift(fullNote)
+            if(this.fullNote.title || this.fullNote.noteText){
+                this.note.unshift(this.fullNote)
                 this.renderNote(this.note)
                 this.$placeHolder.style.display = 'flex'
                 this.$notesText.value = ``
@@ -85,9 +88,30 @@ class App {
     }
 
     openModal(e){
-        if (e.target.dataset.note){
-            this.$modal.classList.toggle('open-modal')
+        let closestNote = e.target.closest('.note')
+            if(closestNote){
+                 this.$modal.classList.toggle('open-modal')
+                 this.$modalBtn.innerHTML = this.getModalButtonHtml(closestNote.id)
+                console.log(closestNote)
+                let noteTitle = closestNote.children[0]
+                let noteText = closestNote.children[1]
+                this.getNoteDetails(noteText, noteTitle)
+            }
+    }
+
+    editText(e){
+        if(e.target.dataset.edit){
+             let targetNote = this.note.filter((note) => {
+            return e.target.dataset.edit === note.id
+        })
+
+        console.log(targetNote)
         }
+    }
+
+    getNoteDetails(text, title){
+        this.$modalTitle.value = title.textContent
+        this.$modalText.value = text.textContent
     }
 
     closeModal(){
@@ -97,7 +121,7 @@ class App {
    getNoteHtml(arr){
     return arr.map((note) => {
         return `
-         <div class="note" data-note="${note.id}" style="background: ${note.color};">
+         <div class="note" id="${note.id}" style="background: ${note.color};">
                 <div class="note-title">${note.title}</div>
                 <div class="note-text">${note.noteText}</div>
                 <div class="toolbar-container">
