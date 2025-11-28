@@ -103,11 +103,11 @@ class App {
         if(e.target.dataset.edit){
              let targetNote = this.note.filter((note) => {
             return e.target.dataset.edit === note.id
-        })
+        })[0]
 
        targetNote.title = this.$modalTitle.value
-       targetNote.text = this.$modalText.value
-       console.log(this.note)
+       targetNote.noteText = this.$modalText.value
+       this.renderNote(this.note)
         }
     }
 
