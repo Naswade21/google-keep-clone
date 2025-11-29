@@ -30,6 +30,10 @@ class App {
         
         })
 
+        document.body.addEventListener('mouseover', (e) => {
+            this.openToolTip(e)
+        })
+
         this.$closeBtn.addEventListener('click', (e) => {
             e.stopPropagation()
             this.closeForm()
@@ -56,9 +60,8 @@ class App {
                 this.$placeHolder.style.display = 'flex'
                 this.$notesText.value = ``
                 this.$noteTitle.value = ``
-                this.closeForm()
-            } else{
                 this.$placeHolder.style.display = 'none'
+                this.closeForm()
             }
         })
     }
@@ -90,9 +93,8 @@ class App {
     openModal(e){
         let closestNote = e.target.closest('.note')
             if(closestNote){
-                 this.$modal.classList.toggle('open-modal')
-                 this.$modalBtn.innerHTML = this.getModalButtonHtml(closestNote.id)
-                console.log(closestNote)
+                this.$modal.classList.toggle('open-modal')
+                this.$modalBtn.innerHTML = this.getModalButtonHtml(closestNote.id)
                 let noteTitle = closestNote.children[0]
                 let noteText = closestNote.children[1]
                 this.getNoteDetails(noteText, noteTitle)
@@ -108,6 +110,13 @@ class App {
        targetNote.title = this.$modalTitle.value
        targetNote.noteText = this.$modalText.value
        this.renderNote(this.note)
+       this.closeModal()
+        }
+    }
+
+    openToolTip(e){
+        if(!e.target.matches('.toolbar-color')){
+            return
         }
     }
 
@@ -123,7 +132,8 @@ class App {
    getNoteHtml(arr){
     return arr.map((note) => {
         return `
-         <div class="note" id="${note.id}" style="background: ${note.color};">
+        <div class="color-wrapper">
+        <div class="note" id="${note.id}" style="background: ${note.color};">
                 <div class="note-title">${note.title}</div>
                 <div class="note-text">${note.noteText}</div>
                 <div class="toolbar-container">
@@ -133,6 +143,13 @@ class App {
                     </div>
                 </div>
             </div>
+            <div id="color-tooltip">
+                <div class="color-option" data-color="#fff" id="white"></div>
+                <div class="color-option" data-color="#d7aefb" id="purple"></div>
+                <div class="color-option" data-color="#fbbc04" id="orange"></div>
+                <div class="color-option" data-color="#a7ffeb" id="teal"></div>
+            </div>
+        </div>
         `
     }).join('')
    }
