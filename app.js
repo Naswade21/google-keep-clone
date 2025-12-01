@@ -15,6 +15,8 @@ class App {
         this.$modalText = document.querySelector('.modal-text')
         this.$modalBtn = document.getElementById('new-btn')
         this.$modalClose = document.querySelector('.modal-close-button')
+        this.$toolBar = document.querySelector('.toolbar')
+        this.$colorTool = document.querySelector('.color-tooltip')
         this.fullNote = {}
         this.note = []
         
@@ -27,11 +29,6 @@ class App {
             this.handleFormClick(event)
             this.openModal(event)
             this.editText(event)
-        
-        })
-
-        document.body.addEventListener('mouseover', (e) => {
-            this.openToolTip(e)
         })
 
         this.$closeBtn.addEventListener('click', (e) => {
@@ -114,12 +111,6 @@ class App {
         }
     }
 
-    openToolTip(e){
-        if(!e.target.matches('.toolbar-color')){
-            return
-        }
-    }
-
     getNoteDetails(text, title){
         this.$modalTitle.value = title.textContent
         this.$modalText.value = text.textContent
@@ -143,7 +134,7 @@ class App {
                     </div>
                 </div>
             </div>
-            <div id="color-tooltip">
+            <div class="color-tooltip hidden">
                 <div class="color-option" data-color="#fff" id="white"></div>
                 <div class="color-option" data-color="#d7aefb" id="purple"></div>
                 <div class="color-option" data-color="#fbbc04" id="orange"></div>
