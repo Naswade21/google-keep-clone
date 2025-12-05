@@ -24,12 +24,13 @@ class App {
     addEventListeners(){
 
         document.body.addEventListener('click', (event) => {
-            if(event.target.closest('.toolbar-color')){
-           return console.log('jackboys')
+
+           if(event.target.closest('.toolbar-color')){
+           console.log('jackboys')
+        } else if(event.target.closest('.note')){
+            this.openModal(event.target.closest('.note'))
         }
-            
             this.handleFormClick(event)
-            this.openModal(event)
             this.editText(event)
         })
 
@@ -89,15 +90,13 @@ class App {
         this.$formButtons.style.display = 'none'
     }
 
-    openModal(e){
-        let closestNote = e.target.closest('.note')
-            if(closestNote){
+    openModal(note){
                 this.$modal.classList.toggle('open-modal')
-                this.$modalBtn.innerHTML = this.getModalButtonHtml(closestNote.id)
-                let noteTitle = closestNote.children[0]
-                let noteText = closestNote.children[1]
+                this.$modalBtn.innerHTML = this.getModalButtonHtml(note.id)
+                let noteTitle = note.children[0]
+                let noteText = note.children[1]
                 this.getNoteDetails(noteText, noteTitle)
-            }
+           
     }
 
     editText(e){
