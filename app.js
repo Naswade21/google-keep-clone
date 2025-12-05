@@ -15,6 +15,7 @@ class App {
         this.$modalText = document.querySelector('.modal-text')
         this.$modalBtn = document.getElementById('new-btn')
         this.$modalClose = document.querySelector('.modal-close-button')
+        this.$toolColor = document.querySelector('.color-tooltip')
         this.fullNote = {}
         this.note = []
         
@@ -26,7 +27,7 @@ class App {
         document.body.addEventListener('click', (event) => {
 
            if(event.target.closest('.toolbar-color')){
-           console.log('jackboys')
+           this.chooseColor(event.target.closest('.toolbar-color'))
         } else if(event.target.closest('.note')){
             this.openModal(event.target.closest('.note'))
         }
@@ -64,6 +65,12 @@ class App {
                 this.closeForm()
             }
         })
+    }
+
+    chooseColor(color){
+        let mainDiv = color.parentElement.parentElement.parentElement
+        let mainId = mainDiv.id
+        console.log(mainId)
     }
 
     handleFormClick(event){
