@@ -70,8 +70,6 @@ class App {
 
     chooseColor(color){
         let mainDiv = color.parentElement.parentElement.parentElement
-        this.$toolColor.classList.toggle('hidden')
-        
         
     }
 
@@ -137,12 +135,12 @@ class App {
                 <div class="note-text">${note.noteText}</div>
                 <div class="toolbar-container">
                     <div class="toolbar">
-                        <div class="toolbar-color" data-tool="${note.id}"><i class="fa-solid fa-palette"></i></div>
+                        <div class="toolbar-color"><i class="fa-solid fa-palette"></i></div>
                         <div class="toolbar-delete"><i class="fa-solid fa-x"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="color-tooltip hidden">
+            <div class="color-tooltip hidden" data-pick="${note.id}">
                 <div class="color-option" data-color="#fff" id="white"></div>
                 <div class="color-option" data-color="#d7aefb" id="purple"></div>
                 <div class="color-option" data-color="#fbbc04" id="orange"></div>
