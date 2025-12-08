@@ -30,9 +30,10 @@ class App {
            this.chooseColor(event.target.closest('.toolbar-color'))
         } else if(event.target.closest('.note')){
             this.openModal(event.target.closest('.note'))
+        } else if(event.target.dataset.edit){
+            this.editText(event.target.dataset.edit)
         }
             this.handleFormClick(event)
-            this.editText(event)
         })
 
         this.$closeBtn.addEventListener('click', (e) => {
@@ -69,8 +70,9 @@ class App {
 
     chooseColor(color){
         let mainDiv = color.parentElement.parentElement.parentElement
-        let mainId = mainDiv.id
-        console.log(mainId)
+        this.$toolColor.classList.toggle('hidden')
+        
+        
     }
 
     handleFormClick(event){
@@ -106,17 +108,15 @@ class App {
            
     }
 
-    editText(e){
-        if(e.target.dataset.edit){
-             let targetNote = this.note.filter((note) => {
-            return e.target.dataset.edit === note.id
+    editText(noteId){
+        let targetNote = this.note.filter((note) => {
+            return noteId === note.id
         })[0]
 
        targetNote.title = this.$modalTitle.value
        targetNote.noteText = this.$modalText.value
        this.renderNote(this.note)
        this.closeModal()
-        }
     }
 
     getNoteDetails(text, title){
@@ -132,12 +132,12 @@ class App {
     return arr.map((note) => {
         return `
         <div class="color-wrapper">
-        <div class="note" id="note-${note.id}" style="background: ${note.color};">
+            <div class="note" id="${note.id}" style="background: ${note.color};">
                 <div class="note-title">${note.title}</div>
                 <div class="note-text">${note.noteText}</div>
                 <div class="toolbar-container">
                     <div class="toolbar">
-                        <div class="toolbar-color"><i class="fa-solid fa-palette"></i></div>
+                        <div class="toolbar-color" data-tool="${note.id}"><i class="fa-solid fa-palette"></i></div>
                         <div class="toolbar-delete"><i class="fa-solid fa-x"></i></div>
                     </div>
                 </div>
