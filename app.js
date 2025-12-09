@@ -70,6 +70,7 @@ class App {
 
     chooseColor(color){
         let mainDiv = color.parentElement.parentElement.parentElement
+        console.log(mainDiv)
         
     }
 
