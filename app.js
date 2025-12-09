@@ -69,8 +69,10 @@ class App {
     }
 
     chooseColor(color){
-        let mainDiv = color.parentElement.parentElement.parentElement.parentElement
+        let mainDiv = color.parentElement.parentElement.parentElement
+        console.log(color)
         console.log(mainDiv)
+        let getColorTool = document.querySelector(`[data-pick="${noteId}"]`)
         
     }
 
