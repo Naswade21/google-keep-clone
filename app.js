@@ -69,11 +69,8 @@ class App {
     }
 
     chooseColor(color){
-        let mainDiv = color.parentElement.parentElement.parentElement
-        console.log(color)
-        console.log(mainDiv)
-        let getColorTool = document.querySelector(`[data-pick="${noteId}"]`)
-        
+        const specificColorBar = document.querySelector(`[data-pick="${color.dataset.tool}"]`)
+        specificColorBar.classList.toggle('hidden')
     }
 
     handleFormClick(event){
