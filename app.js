@@ -32,6 +32,8 @@ class App {
             this.openModal(event.target.closest('.note'))
         } else if(event.target.dataset.edit){
             this.editText(event.target.dataset.edit)
+        } else if(event.target.closest('.color-option')){
+            this.changeNoteColor(event.target.closest('.color-option'))
         }
             this.handleFormClick(event)
         })
@@ -69,9 +71,18 @@ class App {
     }
 
     chooseColor(color){
-        const specificColorBar = document.querySelector(`[data-pick="${color.dataset.tool}"]`)
+        let mainDiv = color.parentElement.parentElement.parentElement
+        let specificColorBar = document.querySelector(`[data-pick="${mainDiv.id}"]`)
         specificColorBar.classList.toggle('hidden')
     }
+
+    changeNoteColor(color){
+        let mainDiv = color.parentElement //access colortooltip class
+        let noteDiv = mainDiv.previousElementSibling // get div before it
+        let colorHash = color.dataset.color //the color from 'closest' color
+
+        noteDiv.style.backgroundColor = `${colorHash}`
+    }   
 
     handleFormClick(event){
         const isFormClicked = this.$form.contains(event.target)
