@@ -18,14 +18,12 @@ class App {
         this.$toolColor = document.querySelector('.color-tooltip')
         this.fullNote = {}
         this.note = JSON.parse(localStorage.getItem('notes')) || [{"id":"081a4593-6e19-4ce4-801c-4ed4cfdcd3b5","color":"white","title":"Feel free to delete these as well","noteText":""},{"id":"4fa62bde-b506-4631-8c1b-d984e4b84ac3","color":"#fbbc04","title":"Leave a good note","noteText":"if you got time..."},{"id":"62cf9028-d31b-4a60-8fae-53ce12057a92","color":"white","title":"Colors","noteText":"Feel free to change the colors of the notes as well"},{"id":"89b843cf-2627-4580-b777-7ea31e329f85","color":"white","title":"Welcome to the App!","noteText":"The notes actually save on this one"}]
-        this.renderNote(this.note) //hey
+        this.renderNote(this.note) 
 
         this.addEventListeners()
     }
 
     addEventListeners(){
-
-        localStorage.clear()
 
         document.body.addEventListener('click', (event) => {
 
