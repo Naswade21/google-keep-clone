@@ -25,6 +25,8 @@ class App {
 
     addEventListeners(){
 
+        localStorage.clear()
+
         document.body.addEventListener('click', (event) => {
 
            if(event.target.closest('.toolbar-color')){
