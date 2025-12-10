@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 
 class App {
     constructor(){ //constructor is a special method for a class
-        this.$form = document.getElementById('form') //Anything with $ will represent an element
+        this.$form = document.getElementById('form') // Anything with $ will represent an element
         this.$noteTitle = document.getElementById('note-title')
         this.$formButtons = document.getElementById('form-buttons')
         this.$notes = document.getElementById('notes')
@@ -17,8 +17,9 @@ class App {
         this.$modalClose = document.querySelector('.modal-close-button')
         this.$toolColor = document.querySelector('.color-tooltip')
         this.fullNote = {}
-        this.note = []
-        
+        this.note = JSON.parse(localStorage.getItem('notes')) || []
+        this.renderNote(this.note)
+
         this.addEventListeners()
     }
 
@@ -97,8 +98,13 @@ class App {
         let mainDiv = color.parentElement //access colortooltip class
         let noteDiv = mainDiv.previousElementSibling // get div before it
         let colorHash = color.dataset.color //the color from 'closest' color
+        let targetNote = this.note.filter((note) => {
+            return note.id === noteDiv.id
+        })[0]
 
-        noteDiv.style.backgroundColor = `${colorHash}`
+        targetNote.color = `${colorHash}`
+        this.renderNote(this.note)
+        
     }   
 
     handleFormClick(event){
@@ -154,6 +160,10 @@ class App {
         this.$modal.classList.toggle('open-modal')
     }
 
+    saveNotes(){
+        localStorage.setItem('notes', JSON.stringify(this.note))
+    }
+
    getNoteHtml(arr){
     return arr.map((note) => {
         return `
@@ -185,6 +195,7 @@ class App {
     }
 
    renderNote(arr){
+    this.saveNotes()
     return this.$notes.innerHTML = this.getNoteHtml(arr)
    }
 }
