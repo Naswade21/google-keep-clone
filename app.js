@@ -28,13 +28,15 @@ class App {
 
            if(event.target.closest('.toolbar-color')){
            this.chooseColor(event.target.closest('.toolbar-color'))
+        } else if(event.target.closest('.toolbar-delete')){
+            this.deleteNote(event.target.closest('.toolbar-delete'))
         } else if(event.target.closest('.note')){
             this.openModal(event.target.closest('.note'))
         } else if(event.target.dataset.edit){
             this.editText(event.target.dataset.edit)
         } else if(event.target.closest('.color-option')){
             this.changeNoteColor(event.target.closest('.color-option'))
-        }
+        } 
             this.handleFormClick(event)
         })
 
@@ -68,6 +70,21 @@ class App {
                 this.closeForm()
             }
         })
+    }
+
+    deleteNote(note){
+        let mainDiv = note.parentElement.parentElement.parentElement
+        let newNoteArr = this.note.filter((note) => {
+            if(note.id === mainDiv.id){
+                return false
+            }
+
+            return true
+        })
+
+        this.note = newNoteArr
+
+        this.renderNote(this.note)
     }
 
     chooseColor(color){
